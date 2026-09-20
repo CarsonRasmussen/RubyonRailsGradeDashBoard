@@ -1,0 +1,52 @@
+<main class="container mt-5">
+
+  <h1>Grade Dashboard</h1>
+
+  <% if @error %>
+
+    <div class="alert alert-danger">
+      <%= @error %>
+    </div>
+
+  <% else %>
+
+    <% if @overall_gpa %>
+      <div class="card mt-4 mb-4">
+        <div class="card-body">
+          <h2>Calculated GPA: <%= @overall_gpa %></h2>
+          <p class="text-muted">
+            Estimated using grades from all favorite courses.
+          </p>
+        </div>
+      </div>
+    <% end %>
+
+    <%= form_with url: root_path, method: :get do %>
+
+      <label class="form-label">Select a Course:</label>
+
+      <select name="course_id" class="form-select mb-3">
+        <% @courses.each do |course| %>
+          <option value="<%= course["id"] %>">
+            <%= course["name"] %>
+          </option>
+        <% end %>
+      </select>
+
+      <button type="submit" class="btn btn-primary">
+        View Grade
+      </button>
+
+    <% end %>
+
+    <% if @grade %>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h2>Current Grade: <%= @grade %>%</h2>
+        </div>
+      </div>
+    <% end %>
+
+  <% end %>
+
+</main>
